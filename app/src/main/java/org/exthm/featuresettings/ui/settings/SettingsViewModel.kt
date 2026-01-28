@@ -32,10 +32,10 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         private const val CUSTOM_LOCKSCREEN_KEY = "persist.avium.customlockscreen.enable"
         private const val DEPTH_WALLPAPER_KEY = "persist.avium.depthwallpaper"
         private const val FORCE_SCREENSHOT_KEY = "persist.avium.forcescreenshot"
-        private const val LYRIC_ENABLED_VALUE = "1"  
-        private const val LYRIC_DISABLED_VALUE = "0"  
-        private const val ENABLED_VALUE = "1"
-        private const val DISABLED_VALUE = "0"
+        private const val LYRIC_ENABLED_VALUE = "true"  
+        private const val LYRIC_DISABLED_VALUE = "false"  
+        private const val ENABLED_VALUE = "true"
+        private const val DISABLED_VALUE = "false"
     }
 
     private val _lockscreenDimEnabled = MutableStateFlow(false)

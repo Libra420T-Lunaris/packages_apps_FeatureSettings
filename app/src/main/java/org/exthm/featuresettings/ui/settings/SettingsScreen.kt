@@ -45,16 +45,6 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
     val depthWallpaperEnabled by viewModel.depthWallpaperEnabled.collectAsStateWithLifecycle()
     val forceScreenshotEnabled by viewModel.forceScreenshotEnabled.collectAsStateWithLifecycle()
 
-    if (showAppSelectionDialog) {
-        AppSelectionDialog(
-            allApps = installedApps,
-            initiallySelectedApps = disableSensorApps,
-            onDismiss = { viewModel.onDismissAppSelectionDialog() },
-            onConfirm = { selectedApps -> viewModel.onAppSelectionConfirmed(selectedApps) }
-        )
-    }
-
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -100,14 +90,6 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
             Spacer(modifier = Modifier.height(32.dp))
 
             SettingItem(
-                title = stringResource(R.string.status_bar_lyric_title),
-                description = stringResource(R.string.status_bar_lyric_summary),
-                isChecked = statusBarLyricEnabled, 
-                onCheckedChange = { viewModel.onStatusBarLyricChanged(it) },
-                enabled = true 
-            )
-
-            SettingItem(
                 title = stringResource(R.string.music_lockscreen_title),
                 description = stringResource(R.string.music_lockscreen_summary),
                 isChecked = musicLockscreenEnabled,
@@ -129,69 +111,6 @@ fun FeatureSettingsScreen(viewModel: SettingsViewModel) {
                 onCheckedChange = { viewModel.onCustomLockscreenChanged(it) },
                 onDescriptionClick = { viewModel.launchCustomLockscreenApp() },
                 enabled = true
-            )
-
-            SettingItemWithClickableDescription(
-                title = stringResource(R.string.depth_wallpaper_title),
-                description = stringResource(R.string.depth_wallpaper_summary),
-                isChecked = depthWallpaperEnabled,
-                onCheckedChange = { viewModel.onDepthWallpaperChanged(it) },
-                onDescriptionClick = { viewModel.launchDepthWallpaperApp() },
-                enabled = true
-            )
-
-            SettingItem(
-                title = stringResource(R.string.lockscreen_dim_title),
-                description = stringResource(R.string.lockscreen_dim_summary),
-                isChecked = lockscreenDimEnabled,
-                onCheckedChange = { viewModel.onLockscreenDimChanged(it) }
-            )
-
-            SettingItem(
-                title = stringResource(R.string.launcher_blur_title),
-                description = stringResource(R.string.launcher_blur_summary),
-                isChecked = launcherBlurEnabled,
-                onCheckedChange = { viewModel.onLauncherBlurChanged(it) }
-            )
-
-            val descriptionText = if (disableSensorApps.isEmpty()) {
-                stringResource(R.string.disable_sensor_summary_none)
-            } else {
-                stringResource(R.string.disable_sensor_summary_selected, disableSensorApps.size)
-            }
-            SettingItemWithClickableDescription(
-                title = stringResource(R.string.disable_sensor_title),
-                description = descriptionText,
-                isChecked = disableSensorEnabled,
-                onCheckedChange = { viewModel.onDisableSensorChanged(it) },
-                onDescriptionClick = { viewModel.onShowAppSelectionDialog() },
-                enabled = true
-            )
-
-            SettingItem(
-                title = stringResource(R.string.screen_ocr_title),
-                description = stringResource(R.string.screen_ocr_summary),
-                isChecked = screenOcrEnabled,
-                onCheckedChange = { viewModel.onScreenOcrChanged(it) }
-            )
-
-            SettingItem(
-                title = stringResource(R.string.force_screenshot_title),
-                description = stringResource(R.string.force_screenshot_summary),
-                isChecked = forceScreenshotEnabled,
-                onCheckedChange = { viewModel.onForceScreenshotChanged(it) }
-            )
-
-            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-            SliderSettingItem(
-                title = stringResource(R.string.screen_ocr_high_title),
-                value = screenOcrHighValue,
-                onValueChange = { viewModel.onScreenOcrHighChanged(it) },
-                onValueChangeFinished = { viewModel.onScreenOcrHighChangeFinished(screenOcrHighValue) },
-                valueRange = 7f..20f,
-                steps = 12,
-                enabled = screenOcrEnabled
             )
         }
     }
